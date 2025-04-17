@@ -221,7 +221,7 @@ class _LegalAdvisorAppState extends State<LegalAdvisorApp> with SingleTickerProv
             shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
             ),
-            builder: (context) => const LawyerFilterSheet(),
+            builder: (context) => LawyerFilterSheet(),
           );
         },
         backgroundColor: Theme.of(context).primaryColor,
@@ -230,6 +230,138 @@ class _LegalAdvisorAppState extends State<LegalAdvisorApp> with SingleTickerProv
     );
   }
 }
+class LawyerFilterSheet extends StatelessWidget {
+  const LawyerFilterSheet({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final List<Map<String, dynamic>> rechargeOptions = [
+      {'title': 'Standard', 'minutes': 100, 'price': 120},
+      {'title': 'Normal', 'minutes': 200, 'price': 180},
+      {'title': 'Expensive', 'minutes': 500, 'price': 300},
+    ];
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 24),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const Text(
+            'Choose Recharge Option',
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          ),
+          const SizedBox(height: 16),
+          ...rechargeOptions.map((option) => ListTile(
+                title: Text('${option['title']} - ${option['minutes']} min'),
+                subtitle: Text('${option['price']} BDT'),
+                onTap: () {
+                  Navigator.pop(context); // Close bottom sheet
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => PaymentCardScreen(
+                        selectedOption: option,
+                      ),
+                    ),
+                  );
+                },
+              )),
+        ],
+      ),
+    );
+  }
+}
+class PaymentCardScreen extends StatefulWidget {
+  final Map<String, dynamic> selectedOption;
+
+  const PaymentCardScreen({Key? key, required this.selectedOption}) : super(key: key);
+
+  @override
+  _PaymentCardScreenState createState() => _PaymentCardScreenState();
+}
+
+class _PaymentCardScreenState extends State<PaymentCardScreen> {
+  final TextEditingController cardNumberController = TextEditingController();
+  final TextEditingController expDateController = TextEditingController();
+  final TextEditingController cvcController = TextEditingController();
+
+  void _makePayment() {
+    // Simulate payment success
+    showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: const Text("Payment Successful"),
+        content: Text(
+            "You have recharged ${widget.selectedOption['minutes']} minutes for ${widget.selectedOption['price']} BDT."),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.popUntil(context, (route) => route.isFirst),
+            child: const Text("OK"),
+          ),
+        ],
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final option = widget.selectedOption;
+
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Payment"),
+        centerTitle: true,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(24.0),
+        child: ListView(
+          children: [
+            Text(
+              "Recharge: ${option['title']} - ${option['minutes']} min for ${option['price']} BDT",
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 24),
+            TextField(
+              controller: cardNumberController,
+              keyboardType: TextInputType.number,
+              decoration: const InputDecoration(
+                labelText: 'Card Number',
+                border: OutlineInputBorder(),
+              ),
+            ),
+            const SizedBox(height: 16),
+            TextField(
+              controller: expDateController,
+              keyboardType: TextInputType.datetime,
+              decoration: const InputDecoration(
+                labelText: 'Expiration Date (MM/YY)',
+                border: OutlineInputBorder(),
+              ),
+            ),
+            const SizedBox(height: 16),
+            TextField(
+              controller: cvcController,
+              keyboardType: TextInputType.number,
+              decoration: const InputDecoration(
+                labelText: 'CVC',
+                border: OutlineInputBorder(),
+              ),
+            ),
+            const SizedBox(height: 24),
+            ElevatedButton(
+              onPressed: _makePayment,
+              style: ElevatedButton.styleFrom(
+                padding: const EdgeInsets.symmetric(vertical: 14),
+              ),
+              child: const Text("Pay Now"),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
+
 
 // Phone Login Screen
 class PhoneLoginScreen extends StatefulWidget {
@@ -993,215 +1125,215 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
   }
 }
 
-// Lawyer Filter Sheet
-class LawyerFilterSheet extends StatefulWidget {
-  const LawyerFilterSheet({Key? key}) : super(key: key);
+// // Lawyer Filter Sheet
+// class LawyerFilterSheet extends StatefulWidget {
+//   const LawyerFilterSheet({Key? key}) : super(key: key);
 
-  @override
-  _LawyerFilterSheetState createState() => _LawyerFilterSheetState();
-}
+//   @override
+//   _LawyerFilterSheetState createState() => _LawyerFilterSheetState();
+// }
 
-class _LawyerFilterSheetState extends State<LawyerFilterSheet> {
-  final List<String> _specializations = [
-    'All',
-    'Family Law',
-    'Corporate Law',
-    'Criminal Defense',
-    'Real Estate Law',
-    'Immigration Law',
-  ];
+// class _LawyerFilterSheetState extends State<LawyerFilterSheet> {
+//   final List<String> _specializations = [
+//     'All',
+//     'Family Law',
+//     'Corporate Law',
+//     'Criminal Defense',
+//     'Real Estate Law',
+//     'Immigration Law',
+//   ];
   
-  String _selectedSpecialization = 'All';
-  RangeValues _priceRange = const RangeValues(50, 300);
-  double _minRating = 3.0;
+//   String _selectedSpecialization = 'All';
+//   RangeValues _priceRange = const RangeValues(50, 300);
+//   double _minRating = 3.0;
   
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(24.0),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                'Filter Lawyers',
-                style: Theme.of(context).textTheme.titleLarge,
-              ),
-              IconButton(
-                icon: const Icon(Icons.close),
-                onPressed: () => Navigator.pop(context),
-              ),
-            ],
-          ),
-          const SizedBox(height: 16),
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       padding: const EdgeInsets.all(24.0),
+//       child: Column(
+//         mainAxisSize: MainAxisSize.min,
+//         crossAxisAlignment: CrossAxisAlignment.start,
+//         children: [
+//           Row(
+//             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//             children: [
+//               Text(
+//                 'Filter Lawyers',
+//                 style: Theme.of(context).textTheme.titleLarge,
+//               ),
+//               IconButton(
+//                 icon: const Icon(Icons.close),
+//                 onPressed: () => Navigator.pop(context),
+//               ),
+//             ],
+//           ),
+//           const SizedBox(height: 16),
           
-          // Specialization filter
-          const Text(
-            'Specialization',
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          const SizedBox(height: 8),
-          Wrap(
-            spacing: 8,
-            runSpacing: 8,
-            children: _specializations.map((specialization) {
-              final isSelected = specialization == _selectedSpecialization;
-              return ChoiceChip(
-                label: Text(specialization),
-                selected: isSelected,
-                onSelected: (selected) {
-                  if (selected) {
-                    setState(() {
-                      _selectedSpecialization = specialization;
-                    });
-                  }
-                },
-                backgroundColor: Colors.grey[200],
-                selectedColor: Theme.of(context).primaryColor.withOpacity(0.2),
-                labelStyle: TextStyle(
-                  color: isSelected ? Theme.of(context).primaryColor : Colors.black87,
-                  fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-                ),
-              );
-            }).toList(),
-          ),
+//           // Specialization filter
+//           const Text(
+//             'Specialization',
+//             style: TextStyle(
+//               fontSize: 16,
+//               fontWeight: FontWeight.bold,
+//             ),
+//           ),
+//           const SizedBox(height: 8),
+//           Wrap(
+//             spacing: 8,
+//             runSpacing: 8,
+//             children: _specializations.map((specialization) {
+//               final isSelected = specialization == _selectedSpecialization;
+//               return ChoiceChip(
+//                 label: Text(specialization),
+//                 selected: isSelected,
+//                 onSelected: (selected) {
+//                   if (selected) {
+//                     setState(() {
+//                       _selectedSpecialization = specialization;
+//                     });
+//                   }
+//                 },
+//                 backgroundColor: Colors.grey[200],
+//                 selectedColor: Theme.of(context).primaryColor.withOpacity(0.2),
+//                 labelStyle: TextStyle(
+//                   color: isSelected ? Theme.of(context).primaryColor : Colors.black87,
+//                   fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+//                 ),
+//               );
+//             }).toList(),
+//           ),
           
-          const SizedBox(height: 24),
+//           const SizedBox(height: 24),
           
-          // Price range filter
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Text(
-                'Price Range',
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              Text(
-                '\$${_priceRange.start.round()} - \$${_priceRange.end.round()}',
-                style: TextStyle(
-                  color: Theme.of(context).primaryColor,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ],
-          ),
-          RangeSlider(
-            values: _priceRange,
-            min: 50,
-            max: 500,
-            divisions: 45,
-            labels: RangeLabels(
-              '\$${_priceRange.start.round()}',
-              '\$${_priceRange.end.round()}',
-            ),
-            onChanged: (RangeValues values) {
-              setState(() {
-                _priceRange = values;
-              });
-            },
-            activeColor: Theme.of(context).primaryColor,
-            inactiveColor: Colors.grey[300],
-          ),
+//           // Price range filter
+//           Row(
+//             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//             children: [
+//               const Text(
+//                 'Price Range',
+//                 style: TextStyle(
+//                   fontSize: 16,
+//                   fontWeight: FontWeight.bold,
+//                 ),
+//               ),
+//               Text(
+//                 '\$${_priceRange.start.round()} - \$${_priceRange.end.round()}',
+//                 style: TextStyle(
+//                   color: Theme.of(context).primaryColor,
+//                   fontWeight: FontWeight.bold,
+//                 ),
+//               ),
+//             ],
+//           ),
+//           RangeSlider(
+//             values: _priceRange,
+//             min: 50,
+//             max: 500,
+//             divisions: 45,
+//             labels: RangeLabels(
+//               '\$${_priceRange.start.round()}',
+//               '\$${_priceRange.end.round()}',
+//             ),
+//             onChanged: (RangeValues values) {
+//               setState(() {
+//                 _priceRange = values;
+//               });
+//             },
+//             activeColor: Theme.of(context).primaryColor,
+//             inactiveColor: Colors.grey[300],
+//           ),
           
-          const SizedBox(height: 24),
+//           const SizedBox(height: 24),
           
-          // Rating filter
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Text(
-                'Minimum Rating',
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              Row(
-                children: [
-                  Text(
-                    _minRating.toString(),
-                    style: TextStyle(
-                      color: Theme.of(context).primaryColor,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const Icon(
-                    Icons.star,
-                    color: Colors.amber,
-                    size: 20,
-                  ),
-                ],
-              ),
-            ],
-          ),
-          Slider(
-            value: _minRating,
-            min: 0,
-            max: 5,
-            divisions: 10,
-            label: _minRating.toString(),
-            onChanged: (double value) {
-              setState(() {
-                _minRating = value;
-              });
-            },
-            activeColor: Theme.of(context).primaryColor,
-            inactiveColor: Colors.grey[300],
-          ),
+//           // Rating filter
+//           Row(
+//             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//             children: [
+//               const Text(
+//                 'Minimum Rating',
+//                 style: TextStyle(
+//                   fontSize: 16,
+//                   fontWeight: FontWeight.bold,
+//                 ),
+//               ),
+//               Row(
+//                 children: [
+//                   Text(
+//                     _minRating.toString(),
+//                     style: TextStyle(
+//                       color: Theme.of(context).primaryColor,
+//                       fontWeight: FontWeight.bold,
+//                     ),
+//                   ),
+//                   const Icon(
+//                     Icons.star,
+//                     color: Colors.amber,
+//                     size: 20,
+//                   ),
+//                 ],
+//               ),
+//             ],
+//           ),
+//           Slider(
+//             value: _minRating,
+//             min: 0,
+//             max: 5,
+//             divisions: 10,
+//             label: _minRating.toString(),
+//             onChanged: (double value) {
+//               setState(() {
+//                 _minRating = value;
+//               });
+//             },
+//             activeColor: Theme.of(context).primaryColor,
+//             inactiveColor: Colors.grey[300],
+//           ),
           
-          const SizedBox(height: 32),
+//           const SizedBox(height: 32),
           
-          // Apply and Reset buttons
-          Row(
-            children: [
-              Expanded(
-                child: OutlinedButton(
-                  onPressed: () {
-                    setState(() {
-                      _selectedSpecialization = 'All';
-                      _priceRange = const RangeValues(50, 300);
-                      _minRating = 3.0;
-                    });
-                  },
-                  style: OutlinedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(vertical: 12),
-                  ),
-                  child: const Text('RESET'),
-                ),
-              ),
-              const SizedBox(width: 16),
-              Expanded(
-                child: ElevatedButton(
-                  onPressed: () {
-                    // Apply filters and close sheet
-                    Navigator.pop(context, {
-                      'specialization': _selectedSpecialization,
-                      'priceRange': _priceRange,
-                      'minRating': _minRating,
-                    });
-                  },
-                  style: ElevatedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(vertical: 12),
-                  ),
-                  child: const Text('APPLY'),
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-}
+//           // Apply and Reset buttons
+//           Row(
+//             children: [
+//               Expanded(
+//                 child: OutlinedButton(
+//                   onPressed: () {
+//                     setState(() {
+//                       _selectedSpecialization = 'All';
+//                       _priceRange = const RangeValues(50, 300);
+//                       _minRating = 3.0;
+//                     });
+//                   },
+//                   style: OutlinedButton.styleFrom(
+//                     padding: const EdgeInsets.symmetric(vertical: 12),
+//                   ),
+//                   child: const Text('RESET'),
+//                 ),
+//               ),
+//               const SizedBox(width: 16),
+//               Expanded(
+//                 child: ElevatedButton(
+//                   onPressed: () {
+//                     // Apply filters and close sheet
+//                     Navigator.pop(context, {
+//                       'specialization': _selectedSpecialization,
+//                       'priceRange': _priceRange,
+//                       'minRating': _minRating,
+//                     });
+//                   },
+//                   style: ElevatedButton.styleFrom(
+//                     padding: const EdgeInsets.symmetric(vertical: 12),
+//                   ),
+//                   child: const Text('APPLY'),
+//                 ),
+//               ),
+//             ],
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+// }
 
 class LawyerListSection extends StatefulWidget {
   const LawyerListSection({Key? key}) : super(key: key);
