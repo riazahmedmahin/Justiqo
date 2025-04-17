@@ -62,7 +62,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,
-        primaryColor: const Color(0xFF1A237E),
+        primaryColor:  const Color.fromARGB(255, 23, 105, 246),
         secondaryHeaderColor: const Color(0xFF3949AB),
         scaffoldBackgroundColor: Colors.white,
         fontFamily: 'Roboto',
@@ -88,7 +88,7 @@ class MyApp extends StatelessWidget {
         ),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
-            backgroundColor: const Color(0xFF1A237E),
+            backgroundColor: Color.fromARGB(255, 23, 105, 246),
             foregroundColor: Colors.white,
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
             shape: RoundedRectangleBorder(
@@ -225,7 +225,7 @@ class _LegalAdvisorAppState extends State<LegalAdvisorApp> with SingleTickerProv
           );
         },
         backgroundColor: Theme.of(context).primaryColor,
-        child: const Icon(Icons.search,color: Colors.white,),
+        child: const Icon(Icons.paypal_rounded,color: Colors.white),
       ) : null,
     );
   }
@@ -510,7 +510,7 @@ class _PhoneLoginScreenState extends State<PhoneLoginScreen> with SingleTickerPr
                                   });
                                 },
                                 initialSelection: 'US',
-                                favorite: const ['+1', '+91', '+44', '+61'],
+                                //favorite: const ['+1', '+91', '+44', '+61'],
                                 showCountryOnly: false,
                                 showOnlyCountryWhenClosed: false,
                                 alignLeft: false,
@@ -1007,117 +1007,119 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
         elevation: 0,
       ),
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(24.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const SizedBox(height: 20),
-              const Icon(
-                Icons.sms,
-                size: 80,
-                color: Colors.blue,
-              ),
-              const SizedBox(height: 24),
-              Text(
-                'Verification Code',
-                style: Theme.of(context).textTheme.headlineMedium,
-              ),
-              const SizedBox(height: 16),
-              Text(
-                'We have sent the verification code to',
-                style: Theme.of(context).textTheme.bodyLarge,
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: 8),
-              Text(
-                widget.phoneNumber,
-                style: const TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(24.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const SizedBox(height: 20),
+                const Icon(
+                  Icons.sms,
+                  size: 80,
+                  color: Colors.blue,
                 ),
-              ),
-              const SizedBox(height: 32),
-              
-              // OTP input field
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: PinCodeTextField(
-                  appContext: context,
-                  length: 6,
-                  obscureText: false,
-                  animationType: AnimationType.fade,
-                  pinTheme: PinTheme(
-                    shape: PinCodeFieldShape.box,
-                    borderRadius: BorderRadius.circular(8),
-                    fieldHeight: 50,
-                    fieldWidth: 40,
-                    activeFillColor: Colors.white,
-                    inactiveFillColor: Colors.white,
-                    selectedFillColor: Colors.white,
-                    activeColor: Theme.of(context).primaryColor,
-                    inactiveColor: Colors.grey,
-                    selectedColor: Theme.of(context).primaryColor,
+                const SizedBox(height: 24),
+                Text(
+                  'Verification Code',
+                  style: Theme.of(context).textTheme.headlineMedium,
+                ),
+                const SizedBox(height: 16),
+                Text(
+                  'We have sent the verification code to',
+                  style: Theme.of(context).textTheme.bodyLarge,
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  widget.phoneNumber,
+                  style: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
                   ),
-                  animationDuration: const Duration(milliseconds: 300),
-                  backgroundColor: Colors.transparent,
-                  enableActiveFill: true,
-                  controller: _otpController,
-                  onCompleted: (v) {
-                    // Auto-submit when all digits are entered
-                    _verifyOTP();
-                  },
-                  onChanged: (value) {
-                    // No need to do anything here
-                  },
-                  beforeTextPaste: (text) {
-                    // If you want to validate the pasted text
-                    return true;
-                  },
                 ),
-              ),
-              
-              const SizedBox(height: 24),
-              
-              // Resend OTP button
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text('Didn\'t receive the code?'),
-                  TextButton(
-                    onPressed: _remainingTime == 0 ? _resendOTP : null,
-                    child: Text(
-                      _remainingTime > 0
-                          ? 'Resend in $_remainingTime seconds'
-                          : 'Resend OTP',
+                const SizedBox(height: 32),
+                
+                // OTP input field
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: PinCodeTextField(
+                    appContext: context,
+                    length: 6,
+                    obscureText: false,
+                    animationType: AnimationType.fade,
+                    pinTheme: PinTheme(
+                      shape: PinCodeFieldShape.box,
+                      borderRadius: BorderRadius.circular(8),
+                      fieldHeight: 50,
+                      fieldWidth: 40,
+                      activeFillColor: Colors.white,
+                      inactiveFillColor: Colors.white,
+                      selectedFillColor: Colors.white,
+                      activeColor: Theme.of(context).primaryColor,
+                      inactiveColor: Colors.grey,
+                      selectedColor: Theme.of(context).primaryColor,
+                    ),
+                    animationDuration: const Duration(milliseconds: 300),
+                    backgroundColor: Colors.transparent,
+                    enableActiveFill: true,
+                    controller: _otpController,
+                    onCompleted: (v) {
+                      // Auto-submit when all digits are entered
+                      _verifyOTP();
+                    },
+                    onChanged: (value) {
+                      // No need to do anything here
+                    },
+                    beforeTextPaste: (text) {
+                      // If you want to validate the pasted text
+                      return true;
+                    },
+                  ),
+                ),
+                
+                const SizedBox(height: 24),
+                
+                // Resend OTP button
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text('Didn\'t receive the code?'),
+                    TextButton(
+                      onPressed: _remainingTime == 0 ? _resendOTP : null,
+                      child: Text(
+                        _remainingTime > 0
+                            ? 'Resend in $_remainingTime seconds'
+                            : 'Resend OTP',
+                      ),
+                    ),
+                  ],
+                ),
+                
+                const SizedBox(height: 32),
+                
+                // Verify button
+                if (_isLoading)
+                  SpinKitDoubleBounce(
+                    color: Theme.of(context).primaryColor,
+                    size: 50.0,
+                  )
+                else
+                  ElevatedButton(
+                    onPressed: _verifyOTP,
+                    style: ElevatedButton.styleFrom(
+                      minimumSize: const Size.fromHeight(50),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                    child: const Text(
+                      'VERIFY & PROCEED',
+                      style: TextStyle(fontSize: 16),
                     ),
                   ),
-                ],
-              ),
-              
-              const SizedBox(height: 32),
-              
-              // Verify button
-              if (_isLoading)
-                SpinKitDoubleBounce(
-                  color: Theme.of(context).primaryColor,
-                  size: 50.0,
-                )
-              else
-                ElevatedButton(
-                  onPressed: _verifyOTP,
-                  style: ElevatedButton.styleFrom(
-                    minimumSize: const Size.fromHeight(50),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                  ),
-                  child: const Text(
-                    'VERIFY & PROCEED',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
@@ -1356,8 +1358,6 @@ class _LawyerListSectionState extends State<LawyerListSection> with SingleTicker
   final TextEditingController _searchController = TextEditingController();
   late AnimationController _animationController;
   late Animation<double> _animation;
-
-  bool _showBalance = false;
   String _balance = '৳ 1,500'; // Example balance
 
   @override
@@ -1424,45 +1424,14 @@ class _LawyerListSectionState extends State<LawyerListSection> with SingleTicker
                             ),
                           ),
                           const SizedBox(height: 12),
-                          GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                _showBalance = true;
-                              });
-                              Future.delayed(const Duration(seconds: 5), () {
-                                if (mounted) {
-                                  setState(() {
-                                    _showBalance = false;
-                                  });
-                                }
-                              });
-                            },
-                            child: Container(
-                              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                              decoration: BoxDecoration(
-                                color: Colors.black.withOpacity(0.15),
-                                borderRadius: BorderRadius.circular(12),
-                                border: Border.all(color: Colors.white70),
-                              ),
-                              child: Text(
-                                _showBalance ? _balance : 'show balance',
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                            ),
-                          ),
-                           SizedBox(height: 16),
-                          SizedBox(height: 40,),
+                          BalanceDisplay(balance: _balance),
+                          const SizedBox(height: 42),
                         ],
                       ),
                     ),
                   ),
                 ),
               ),
-              
               bottom: PreferredSize(
                 preferredSize: const Size.fromHeight(60),
                 child: Container(
@@ -1633,6 +1602,53 @@ class _LawyerListSectionState extends State<LawyerListSection> with SingleTicker
               ),
             ),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class BalanceDisplay extends StatefulWidget {
+  final String balance;
+
+  const BalanceDisplay({Key? key, required this.balance}) : super(key: key);
+
+  @override
+  _BalanceDisplayState createState() => _BalanceDisplayState();
+}
+
+class _BalanceDisplayState extends State<BalanceDisplay> {
+  bool _showBalance = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          _showBalance = true;
+        });
+        Future.delayed(const Duration(seconds: 3), () {
+          if (mounted) {
+            setState(() {
+              _showBalance = false;
+            });
+          }
+        });
+      },
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        decoration: BoxDecoration(
+          color: Colors.black.withOpacity(0.15),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: Colors.white70),
+        ),
+        child: Text(
+          _showBalance ? widget.balance : 'show balance',
+          style: const TextStyle(
+            color: Colors.white,
+            fontSize: 16,
+            fontWeight: FontWeight.w500,
+          ),
         ),
       ),
     );
