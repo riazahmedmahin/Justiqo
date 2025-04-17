@@ -185,7 +185,7 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
                       shape: PinCodeFieldShape.box,
                       borderRadius: BorderRadius.circular(8),
                       fieldHeight: 50,
-                      fieldWidth: 40,
+                      fieldWidth: 45,
                       activeFillColor: Colors.white,
                       inactiveFillColor: Colors.white,
                       selectedFillColor: Colors.white,

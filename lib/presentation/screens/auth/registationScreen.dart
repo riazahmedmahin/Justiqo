@@ -89,17 +89,21 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               key: _formKey,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
                     'Create a new account',
                     style: Theme.of(context).textTheme.titleLarge,
                     textAlign: TextAlign.center,
                   ),
-                  const SizedBox(height: 32),
+                  
+                    Text(
+                    "You have to see you again to your accout",
+                    style: TextStyle(color: Colors.grey.shade500),
+                  ),
                   
                   // Name field
-              
+              const SizedBox(height: 32),
                   
                   // Phone number with country code
                   Container(
