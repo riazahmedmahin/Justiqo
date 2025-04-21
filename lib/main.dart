@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:layer/app.dart';
 import 'package:layer/core/theme/app_theme.dart';
+import 'package:layer/presentation/screens/AIBot/aibot.dart';
 import 'package:layer/presentation/screens/auth/LogInScreen.dart';
 import 'package:layer/presentation/screens/auth/OtpVerification.dart';
 import 'package:layer/presentation/screens/auth/registationScreen.dart';
@@ -167,21 +168,28 @@ class _LegalAdvisorAppState extends State<LegalAdvisorApp> with SingleTickerProv
           ),
         ),
       ),
-      floatingActionButton: _currentIndex == 0 ? FloatingActionButton(
-        onPressed: () {
-          // Quick search or filter action
-          showModalBottomSheet(
-            context: context,
-            isScrollControlled: true,
-            shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-            ),
-            builder: (context) => BuyingSheet(),
-          );
-        },
-        backgroundColor: Theme.of(context).primaryColor,
-        child: const Icon(Icons.paypal_rounded,color: Colors.white),
-      ) : null,
+floatingActionButton: FloatingActionButton(
+  onPressed: () {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (context) => AiBot(),
+    );
+  },
+  backgroundColor: Theme.of(context).primaryColor,
+  child: const Text(
+    'AI',
+    style: TextStyle(
+      color: Colors.white,
+      fontWeight: FontWeight.bold,
+      fontSize: 16,
+    ),
+  ),
+),
+
     );
   }
 }
