@@ -27,40 +27,58 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(
-        255,
-        22,
-        108,
-        207,
-      ), // Background color
+      backgroundColor: Colors.white, // Background color
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Spacer(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+            Column(
               children: [
-                CircleAvatar(
-                  radius: 22,
-                  backgroundColor: Colors.yellow,
-                  child: Text(
-                    "D",
-                    style: TextStyle(
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
+                     Hero(
+                    tag: 'app_logo',
+                    child: Container(
+                      height: 100,
+                      width: 100,
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).primaryColor,
+                        shape: BoxShape.circle,
+                      ),
+                      child: const Icon(
+                        Icons.balance,
+                        size: 60,
+                        color: Colors.white,
+                      ),
                     ),
                   ),
-                ),
+                  SizedBox(height: 30,),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    
+                    CircleAvatar(
+                      radius: 20,
+                      backgroundColor: Colors.yellow,
+                      child: Text(
+                        "J",
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                
+                    Text(
 
-                Text(
-                  "octify",
-                  style: TextStyle(
-                    fontSize: 30, // Matching font size
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
+                      "ustiqo",
+                      style: TextStyle(
+                        fontSize: 20, // Matching font size
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),

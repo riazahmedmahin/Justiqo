@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:layer/core/theme/app_theme.dart';
+import 'package:layer/data/model/model.dart';
 import 'package:layer/main.dart';
 import 'package:layer/presentation/screens/auth/LogInScreen.dart';
+import 'package:layer/presentation/screens/home/homescreen.dart';
 import 'package:layer/presentation/screens/splashscreen/splashscreen.dart';
 import 'package:provider/provider.dart';
 

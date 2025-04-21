@@ -2,6 +2,7 @@
 // Lawyer Card Widget
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:layer/data/model/model.dart';
 import 'package:layer/main.dart';
 
 class LawyerCard extends StatelessWidget {

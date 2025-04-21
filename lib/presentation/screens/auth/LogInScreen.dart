@@ -3,6 +3,7 @@
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:layer/data/model/model.dart';
 import 'package:layer/main.dart';
 import 'package:layer/presentation/screens/auth/OtpVerification.dart';
 import 'package:layer/presentation/screens/auth/registationScreen.dart';
@@ -124,7 +125,7 @@ class _LogInScreenState extends State<LogInScreen> with SingleTickerProviderStat
                   ),
                   const SizedBox(height: 24),
                   Text(
-                    'Legal Advisor',
+                    'Justiqo',
                     style: Theme.of(context).textTheme.headlineMedium,
                     textAlign: TextAlign.center,
                   ),
