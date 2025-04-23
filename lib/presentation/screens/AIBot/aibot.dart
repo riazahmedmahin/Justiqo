@@ -117,6 +117,7 @@ class _AiBotState extends State<AiBot> {
     return Scaffold(
       backgroundColor: Color(0xFFE8F0FE),
       appBar: AppBar(
+        //toolbarHeight: 500,
         title: Text('LawBot - Legal Assistant'),
         backgroundColor: Colors.indigo,
         centerTitle: true,
