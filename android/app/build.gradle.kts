@@ -7,7 +7,7 @@ plugins {
 android {
     namespace = "com.example.layer"
     compileSdk = flutter.compileSdkVersion
-    ndkVersion = "27.0.12077973" // Set the required NDK version
+    ndkVersion = "26.3.11579264" // Set the required NDK version
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
