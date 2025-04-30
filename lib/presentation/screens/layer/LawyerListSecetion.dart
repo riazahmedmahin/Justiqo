@@ -102,16 +102,30 @@ class _LawyerListSectionState extends State<LawyerListSection>
                               Text(
                                 'Welcome, ${user?.name ?? 'User'}',
                                 style: const TextStyle(
-                                  fontSize: 18,
+                                  fontSize: 16,
                                   fontWeight: FontWeight.bold,
                                   color: Colors.white,
                                 ),
                               ),
+                              Spacer(),
+                              Column(
+                                children: [
+                                  Icon(
+                                    Icons.payment_sharp,
+                                    color: Colors.white,
+                                    size: 27,
+                                  ),
+                                  Text(
+                                    "Recharge",
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                ],
+                              ),
                             ],
                           ),
-                          const SizedBox(height: 8),
+                          const SizedBox(height: 5),
                           BalanceDisplay(balance: _balance),
-                          const SizedBox(height: 42),
+                          const SizedBox(height: 30),
                         ],
                       ),
                     ),
@@ -132,7 +146,7 @@ class _LawyerListSectionState extends State<LawyerListSection>
                       hintText: 'Search lawyers...',
                       prefixIcon: const Icon(Icons.search),
                       border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(30),
+                        borderRadius: BorderRadius.circular(20),
                         borderSide: BorderSide.none,
                       ),
                       filled: true,
@@ -153,12 +167,12 @@ class _LawyerListSectionState extends State<LawyerListSection>
           child: Column(
             children: [
               // Top Lawyers Section
-              Heardersection(text: 'Top Lawyer',),
+              Heardersection(text: 'Top Lawyer'),
               const SizedBox(height: 8),
 
               _horizontalTopLawyersList(context),
-              SizedBox(height: 8,),
-              Heardersection(text: 'Category',),
+              SizedBox(height: 8),
+              Heardersection(text: 'Category'),
               // Specialization filter
               SizedBox(
                 height: 50,
@@ -332,10 +346,8 @@ class _LawyerListSectionState extends State<LawyerListSection>
 }
 
 class Heardersection extends StatelessWidget {
-  const Heardersection({
-    super.key, required this.text,
-  });
-  final String text; 
+  const Heardersection({super.key, required this.text});
+  final String text;
 
   @override
   Widget build(BuildContext context) {
@@ -385,7 +397,7 @@ Widget _horizontalTopLawyersList(BuildContext context) {
               borderRadius: BorderRadius.all(Radius.circular(9)),
             ),
             child: Padding(
-              padding: const EdgeInsets.all(7.0),
+              padding: const EdgeInsets.all(8.0),
               child: Container(
                 width: 175,
                 margin: EdgeInsets.only(right: 1),
@@ -423,8 +435,8 @@ Widget _horizontalTopLawyersList(BuildContext context) {
                           ),
                         ),
                         Positioned(
-                          right: 8,
-                          top: 8,
+                          right: 9,
+                          top: 9,
                           child: Container(
                             padding: EdgeInsets.symmetric(
                               horizontal: 4,
@@ -457,7 +469,7 @@ Widget _horizontalTopLawyersList(BuildContext context) {
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(
-                        horizontal: 10,
+                        horizontal: 3,
                         vertical: 3,
                       ),
                       child: Column(
@@ -470,27 +482,27 @@ Widget _horizontalTopLawyersList(BuildContext context) {
                               fontSize: 14,
                             ),
                           ),
+
+                          //SizedBox(height: 5,),
                           Text(
                             lawyer.specialization,
                             style: TextStyle(color: Colors.grey, fontSize: 12),
                           ),
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                "৳${lawyer.consultationFee.toStringAsFixed(0)} / hour",
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                              ),
-                              IconButton(
-                                icon: Icon(
-                                  Icons.favorite_border,
+                                "Experience: ${lawyer.experience}",
+                                style: TextStyle(
+                                  fontSize: 12,
                                   color: Colors.grey,
                                 ),
-                                onPressed: () {
-                                  // You can implement favorite functionality here
-                                },
                               ),
                             ],
+                          ),
+                          SizedBox(height: 10),
+                          Text(
+                            "৳${lawyer.consultationFee.toStringAsFixed(0)} / hour",
+                            style: TextStyle(fontWeight: FontWeight.bold),
                           ),
                         ],
                       ),
