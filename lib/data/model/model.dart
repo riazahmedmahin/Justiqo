@@ -308,6 +308,8 @@ class LawyerProvider with ChangeNotifier {
       return false;
     }
   }
+
+  getTopLawyers() {}
 }
 
 // Notification Provider

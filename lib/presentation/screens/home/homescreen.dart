@@ -7,6 +7,7 @@ import 'package:layer/presentation/screens/Call%20&%20Chat/chatscreen.dart';
 import 'package:layer/presentation/screens/auth/profile.dart';
 import 'package:layer/presentation/screens/layer/LawyerDetails.dart';
 import 'package:layer/presentation/screens/layer/lawyerListsecetion.dart';
+import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
 class LegalAdvisorApp extends StatefulWidget {
@@ -53,11 +54,11 @@ class _LegalAdvisorAppState extends State<LegalAdvisorApp> with SingleTickerProv
             _currentIndex = index;
           });
         },
-        children: const [
+        children: [
           LawyerListSection(),
-          AppointmentSection(),
-          ChatSection(),
-          ProfileSection(),
+          const AppointmentSection(),
+          const ChatSection(),
+          const ProfileSection(),
         ],
       ),
       bottomNavigationBar: Container(
@@ -114,6 +115,7 @@ class _LegalAdvisorAppState extends State<LegalAdvisorApp> with SingleTickerProv
           ),
         ),
       ),
+// Inside your Scaffold
 floatingActionButton: FloatingActionButton(
   onPressed: () {
     showModalBottomSheet(
@@ -126,13 +128,12 @@ floatingActionButton: FloatingActionButton(
     );
   },
   backgroundColor: Theme.of(context).primaryColor,
-  child: const Text(
-    'AI',
-    style: TextStyle(
-      color: Colors.white,
-      fontWeight: FontWeight.bold,
-      fontSize: 16,
-    ),
+  child: Lottie.asset(
+    'assets/animation/aibot.json',
+    width: 100,
+    height: 100,
+    fit: BoxFit.cover,
+    repeat: true, // Keep it looping
   ),
 ),
 
